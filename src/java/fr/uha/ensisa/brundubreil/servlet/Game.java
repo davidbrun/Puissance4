@@ -4,6 +4,8 @@
  */
 package fr.uha.ensisa.brundubreil.servlet;
 
+import fr.uha.ensisa.brundubreil.model.CellState;
+import fr.uha.ensisa.brundubreil.model.Grid;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,9 +18,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dubreil
  */
-@WebServlet(name = "Jeu", urlPatterns = {"/Jeu"})
-public class Jeu extends HttpServlet {
-
+@WebServlet(name = "Game", urlPatterns = {"/Game"})
+public class Game extends HttpServlet {
+    
+    private Grid grid;
+    private GameBean gameBean;
+    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -28,21 +33,26 @@ public class Jeu extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Jeu</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Colonne " + request.getParameter("colonne") + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
-        }
+//        gameBean.setPlayer(request.getParameter("name"));
+//        gameBean.setCellState(0,0, CellState.PLAYER);
+        getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
+//        response.setContentType("text/html;charset=UTF-8");
+//        PrintWriter out = response.getWriter();
+//        
+//        
+//        try {
+//            /* TODO output your page here */
+////            out.println("<html>");
+////            out.println("<head>");
+////            out.println("<title>Servlet Game</title>");  
+////            out.println("</head>");
+////            out.println("<body>");
+////            out.println("<h1>Colonne " + request.getParameter("colonne") + "</h1>");
+////            out.println("</body>");
+////            out.println("</html>");
+//        } finally {            
+//            out.close();
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,5 +89,13 @@ public class Jeu extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
+    }
+
+    @Override
+    public void init() throws ServletException
+    {
+        super.init();
+//        this.grid = new Grid();
+//        this.gameBean = new GameBean();
     }// </editor-fold>
 }
