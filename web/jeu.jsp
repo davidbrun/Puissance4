@@ -21,7 +21,7 @@
     </head>
     <body>
         <h1><center>Puissance 4</center></h1>
-        <h4>Joueur : <%= gameBean.getPlayer() %></h4>
+        <h4>Joueur : <%= gameBean.getPlayerName() %></h4>
         <%
             
             out.println("<table><tr>");
@@ -31,7 +31,7 @@
             for (int i=0;i<6;i++) {
                 out.println("<tr>");
                 for (int j=0;j<7;j++)
-                    out.println("<td><img src='images/" + gameBean.getImage(i, j) + "' style='position: relative;display:block;padding:0px:margin:0px;'/></td>" );
+                    out.println("<td><img src='images/" + gameBean.getImageForCell(i, j) + "' style='position: relative;display:block;padding:0px:margin:0px;'/></td>" );
             
                 out.println("</tr>");
             }

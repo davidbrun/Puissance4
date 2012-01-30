@@ -6,10 +6,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Index", urlPatterns = {"/Index"})
 public class Index extends HttpServlet {
-
+    
+    private GameBean gameBean;
+    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -19,12 +22,23 @@ public class Index extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nom=(String) request.getParameter("name");
-        if (!nom.isEmpty())
+        
+        String name = (String) request.getParameter("name");
+        if (!name.isEmpty())
         {
+            HttpSession session = request.getSession(true);
+
+            gameBean = (GameBean) session.getAttribute("gameBean");
+            if (gameBean == null) {
+                gameBean = new GameBean();
+                session.setAttribute("gameBean", gameBean);
+            }
+            
+            gameBean.setPlayerName(name);
+            
             getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
         }
-        else{
+        else {
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }

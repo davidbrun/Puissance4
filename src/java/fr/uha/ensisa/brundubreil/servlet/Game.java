@@ -1,27 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.uha.ensisa.brundubreil.servlet;
 
-import fr.uha.ensisa.brundubreil.model.CellState;
-import fr.uha.ensisa.brundubreil.model.Grid;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author dubreil
- */
 @WebServlet(name = "Game", urlPatterns = {"/Game"})
 public class Game extends HttpServlet {
     
-    private Grid grid;
     private GameBean gameBean;
     
     /** 
@@ -35,6 +24,10 @@ public class Game extends HttpServlet {
             throws ServletException, IOException {
 //        gameBean.setPlayer(request.getParameter("name"));
 //        gameBean.setCellState(0,0, CellState.PLAYER);
+        
+        HttpSession session =  request.getSession(true);
+        gameBean = (GameBean) session.getAttribute("gameBean");
+        
         getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
 //        response.setContentType("text/html;charset=UTF-8");
 //        PrintWriter out = response.getWriter();
@@ -90,12 +83,5 @@ public class Game extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
-    @Override
-    public void init() throws ServletException
-    {
-        super.init();
-//        this.grid = new Grid();
-//        this.gameBean = new GameBean();
-    }// </editor-fold>
+    // </editor-fold>
 }
