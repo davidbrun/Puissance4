@@ -23,11 +23,10 @@ public class Index extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession(true);
         String name = (String) request.getParameter("name");
         if (!name.isEmpty())
         {
-            HttpSession session = request.getSession(true);
-
             gameBean = (GameBean) session.getAttribute("gameBean");
             if (gameBean == null) {
                 gameBean = new GameBean();
@@ -39,6 +38,8 @@ public class Index extends HttpServlet {
             getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
         }
         else {
+            gameBean = new GameBean();
+            session.setAttribute("gameBean", gameBean);
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }

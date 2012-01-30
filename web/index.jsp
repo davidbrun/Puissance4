@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="gameBean" scope="session" class="fr.uha.ensisa.brundubreil.servlet.GameBean" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,7 +9,7 @@
     <body>
         <h1>Puissance 4</h1>
         <form action="Index" method="POST">
-            Nom : <input type="text" name="name"/></br></br>
+            Nom : <input type="text" name="name" value="<%= gameBean.getPlayerName() %>" /></br></br>
             Qui commence la partie : 
             <select name="begin">
                 <option value="player">Moi</option>

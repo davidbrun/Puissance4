@@ -42,6 +42,9 @@ public class GameBean
 
     public String getPlayerName()
     {
-        return playerName;
+        if (playerName != null)
+            return playerName;
+        else
+            return "";
     }
 }
