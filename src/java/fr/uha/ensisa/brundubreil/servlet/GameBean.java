@@ -23,7 +23,7 @@ public class GameBean
     }
     
     public String getImageForCell(int row, int column) {
-        if (grid.getCell(row, column).getState() == CellState.PLAYER)
+        if (grid.getCell(row, column).getState() == CellState.HUMAN_PLAYER)
             return "human.png";
         else if (grid.getCell(row, column).getState() == CellState.COMPUTER)
             return "computer.png";

@@ -39,6 +39,7 @@
             out.println("</table>");
         %>
         </br>
+        </br>
         <a href="index.jsp">Arr&ecirc;ter</a>
     </body>
 </html>

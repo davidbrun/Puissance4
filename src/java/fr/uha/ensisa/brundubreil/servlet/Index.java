@@ -24,22 +24,16 @@ public class Index extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession(true);
+        gameBean = new GameBean();
+        session.setAttribute("gameBean", gameBean);
+        
         String name = (String) request.getParameter("name");
         if (!name.isEmpty())
-        {
-            gameBean = (GameBean) session.getAttribute("gameBean");
-            if (gameBean == null) {
-                gameBean = new GameBean();
-                session.setAttribute("gameBean", gameBean);
-            }
-            
+        {   
             gameBean.setPlayerName(name);
-            
             getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
         }
         else {
-            gameBean = new GameBean();
-            session.setAttribute("gameBean", gameBean);
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
