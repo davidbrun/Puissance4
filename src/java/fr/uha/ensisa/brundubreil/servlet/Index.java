@@ -31,6 +31,7 @@ public class Index extends HttpServlet {
         if (!name.isEmpty())
         {   
             gameBean.setPlayerName(name);
+            gameBean.setHumanPlayerBegin(request.getParameter("begin").equals("1"));
             getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
         }
         else {

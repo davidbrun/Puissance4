@@ -11,10 +11,14 @@ public class GameBean
 {
     private Grid grid;
     private String playerName;
+    private boolean humanPlayerBegin;
 
     public GameBean()
     {
         this.grid = new Grid();
+        this.playerName = "";
+        this.humanPlayerBegin = true;
+        
     }
     
     public Grid getGrid()
@@ -22,7 +26,8 @@ public class GameBean
         return this.grid;
     }
     
-    public String getImageForCell(int row, int column) {
+    public String getImageForCell(int row, int column)
+    {
         if (grid.getCell(row, column).getState() == CellState.HUMAN_PLAYER)
             return "human.png";
         else if (grid.getCell(row, column).getState() == CellState.COMPUTER)
@@ -36,15 +41,23 @@ public class GameBean
         this.grid.setCellState(row, column, state);
     }
     
-    public void setPlayerName(String name){
+    public void setPlayerName(String name)
+    {
         this.playerName = name;
     }
 
     public String getPlayerName()
     {
-        if (playerName != null)
-            return playerName;
-        else
-            return "";
+        return playerName;
+    }
+    
+    public boolean isHumanPlayerBegin()
+    {
+        return humanPlayerBegin;
+    }
+
+    public void setHumanPlayerBegin(boolean humanPlayerBegin)
+    {
+        this.humanPlayerBegin = humanPlayerBegin;
     }
 }

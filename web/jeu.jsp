@@ -21,9 +21,10 @@
     </head>
     <body>
         <h1><center>Puissance 4</center></h1>
-        <h4>Joueur : <%= gameBean.getPlayerName() %></h4>
+        </br>
+        <h3>Joueur : <%= gameBean.getPlayerName() %></h3>
+        </br>
         <%
-            
             out.println("<table><tr>");
             for (int i=0;i<7;i++)
                 out.println("<td><a href='Game?column=" + i + "'><img src='images/fleche.PNG' style='border: none;'/></a></td>");
@@ -38,8 +39,7 @@
             
             out.println("</table>");
         %>
-        </br>
-        </br>
+        </br></br></br>
         <a href="index.jsp">Arr&ecirc;ter</a>
     </body>
 </html>

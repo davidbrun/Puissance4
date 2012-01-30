@@ -7,15 +7,16 @@
         <title>Puissance 4</title>
     </head>
     <body>
-        <h1>Puissance 4</h1>
+        <h1><center>Puissance 4</center></h1>
+        </br></br>
         <form action="Index" method="POST">
-            Nom :
+            Nom du joueur :
             <input type="text" name="name" value="<%= gameBean.getPlayerName() %>" /></br></br>
             Qui commence la partie : 
             <select name="begin">
-                <option value="player">Moi</option>
-                <option value="computer">Ordinateur</option>
-            </select></br></br>
+                <option value="1"<%= (gameBean.isHumanPlayerBegin() ? "SELECTED" : "") %>>Moi</option>
+                <option value="0"<%= (gameBean.isHumanPlayerBegin() ? "" : "SELECTED") %>>Ordinateur</option>
+            </select></br></br></br>
             <INPUT type="submit" value="Valider">
         </form>
     </body>
