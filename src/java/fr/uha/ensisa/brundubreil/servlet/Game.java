@@ -29,23 +29,23 @@ public class Game extends HttpServlet {
         gameBean = (GameBean) session.getAttribute("gameBean");
         Grid grid = gameBean.getGrid();
         
-        boolean notIsDraw = false;
+        boolean columnFull = false;
         // Make the human player play
-        notIsDraw |= Gameplay.doHumanPlayerPlay(grid, Integer.parseInt(request.getParameter("column")));
+        columnFull |= Gameplay.doHumanPlayerPlay(grid, Integer.parseInt(request.getParameter("column")));
         
-        if (notIsDraw)
+        if (columnFull)
         { // Only if the user did not complete a column
             if (grid.isHumanPlayerWinner()) {
                 gameBean.setIsHumanPlayerWinner(true);
             } else {
                 // Make the computer play
-                notIsDraw |= Gameplay.doComputerPlay(grid);
+                columnFull |= Gameplay.doComputerPlay(grid);
                 if (grid.isComputerWinner()) {
                     gameBean.setIsComputerWinner(true);
                 }
             }
             // Check if there is a draw
-            if (!notIsDraw) {
+            if (grid.isGridFull()) {
                 gameBean.setIsDraw(true);
             }
         }

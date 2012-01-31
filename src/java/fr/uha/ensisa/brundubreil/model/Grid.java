@@ -2,20 +2,24 @@ package fr.uha.ensisa.brundubreil.model;
 
 public class Grid
 {
+    public static final int WIDTH = 7;
+    public static final int HEIGHT = 6;
+    private static final int NBR_OF_CONSECUTIVES_TO_WIN = 4;
+    
     private Cell[][] cells;
     private boolean[] columnFull;
     private boolean gridFull;
 
     public Grid()
     {
-        this.cells = new Cell[6][7];
+        this.cells = new Cell[HEIGHT][WIDTH];
         
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 7; j++)
+        for (int i = 0; i < HEIGHT; i++)
+            for (int j = 0; j < WIDTH; j++)
                 this.cells[i][j] = new Cell();
         
-        this.columnFull = new boolean[7];
-        for (int i = 0; i < 7; i++)
+        this.columnFull = new boolean[WIDTH];
+        for (int i = 0; i < WIDTH; i++)
             this.columnFull[i] = false;
         
         this.gridFull = false;
@@ -38,21 +42,24 @@ public class Grid
                 return this.cells[i][column];
         
         this.columnFull[column] = true;
-        updateGridFlag();
         return null;
     }
     
     private void updateGridFlag()
     {
         boolean tmp = true;
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < WIDTH; i++)
+        {
+            getFirstNonEmptyCellFromColumn(i);
             tmp &= this.columnFull[i];
+        }
         
         this.gridFull = tmp;
     }
 
     public boolean isGridFull()
     {
+        updateGridFlag();
         return gridFull;
     }
 
@@ -71,45 +78,45 @@ public class Grid
         int consecutive = 0;
         
         // Vertical
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < WIDTH; i++)
         {
             consecutive = 0;
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < HEIGHT; j++)
             {
                 if (this.cells[j][i].getState() == stateToDetect)
                     consecutive++;
                 else
                     consecutive = 0;
                 
-                if (consecutive >= 4)
+                if (consecutive >= NBR_OF_CONSECUTIVES_TO_WIN)
                     return true;
             }
         }
         
         // Horizontal
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < HEIGHT; i++)
         {
             consecutive = 0;
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < WIDTH; j++)
             {
                 if (this.cells[i][j].getState() == stateToDetect)
                     consecutive++;
                 else
                     consecutive = 0;
                 
-                if (consecutive >= 4)
+                if (consecutive >= NBR_OF_CONSECUTIVES_TO_WIN)
                     return true;
             }
         }
         
         // Right diagonal
         
-        if (consecutive >= 4)
+        if (consecutive >= NBR_OF_CONSECUTIVES_TO_WIN)
             return true;
         
         // Left diagonal
         
-        if (consecutive >= 4)
+        if (consecutive >= NBR_OF_CONSECUTIVES_TO_WIN)
             return true;
         
         return false;

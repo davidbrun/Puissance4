@@ -10,7 +10,7 @@ public class Gameplay
     {
         boolean result = false;
         
-        Cell cell = grid.getFirstNonEmptyCellFromColumn(new Random(System.nanoTime()).nextInt(7));
+        Cell cell = grid.getFirstNonEmptyCellFromColumn(new Random(System.nanoTime()).nextInt(Grid.WIDTH));
         if (cell != null)
         {
             cell.setState(CellState.COMPUTER);

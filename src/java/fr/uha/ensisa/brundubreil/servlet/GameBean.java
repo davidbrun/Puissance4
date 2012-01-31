@@ -95,4 +95,44 @@ public class GameBean
     {
         this.humanPlayerWinner = humanPlayerWinner;
     }
+    
+    public String getGridHTML()
+    {
+        StringBuilder result = new StringBuilder();
+        
+        if (computerWinner || humanPlayerWinner || draw)
+        {
+            result.append("<h4 style=\"margin-top: -1px;\">Partie terminée. Vainqueur : ");
+
+            if (computerWinner)
+                result.append("Ordinateur");
+            else if (humanPlayerWinner)
+                result.append(this.playerName);
+            else if (draw)
+                result.append("Match nul !");
+
+            result.append("</h4>");
+        }
+
+        result.append("<table>").append("\n");
+        if (!computerWinner && !humanPlayerWinner && !draw)
+        {
+            result.append("<tr>").append("\n");
+            for (int i = 0; i < Grid.WIDTH; i++)
+            result.append("<td><a href='Game?column=").append(i).append("'><img src='images/fleche.PNG' style='border: none;'/></a></td>").append("\n");
+            result.append("</tr>").append("\n");
+        }
+
+        for (int i = 0; i < Grid.HEIGHT; i++) {
+            result.append("<tr>").append("\n");
+            for (int j = 0; j < Grid.WIDTH; j++)
+                result.append("<td><img src='images/").append(this.getImageForCell(i, j)).append("' style='position: relative;display:block;padding:0px:margin:0px;'/></td>").append("\n");
+
+            result.append("</tr>").append("\n");
+        }
+
+        result.append("</table>").append("\n");
+        
+        return result.toString();
+    }
 }
