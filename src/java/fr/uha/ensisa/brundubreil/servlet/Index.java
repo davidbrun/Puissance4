@@ -1,5 +1,6 @@
 package fr.uha.ensisa.brundubreil.servlet;
 
+import fr.uha.ensisa.brundubreil.model.Gameplay;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +33,11 @@ public class Index extends HttpServlet {
         {   
             gameBean.setPlayerName(name);
             gameBean.setHumanPlayerBegin(request.getParameter("begin").equals("1"));
+            
+            // If the computer begins, we must make it play
+            if (!gameBean.isHumanPlayerBegin())
+                Gameplay.doComputerPlay(gameBean.getGrid());
+            
             getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
         }
         else {

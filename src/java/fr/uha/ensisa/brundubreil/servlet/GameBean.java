@@ -12,13 +12,18 @@ public class GameBean
     private Grid grid;
     private String playerName;
     private boolean humanPlayerBegin;
+    private boolean humanPlayerWinner;
+    private boolean computerWinner;
+    private boolean draw;
 
     public GameBean()
     {
         this.grid = new Grid();
         this.playerName = "";
         this.humanPlayerBegin = true;
-        
+        this.computerWinner = false;
+        this.draw = false;
+        this.humanPlayerWinner = false;
     }
     
     public Grid getGrid()
@@ -59,5 +64,35 @@ public class GameBean
     public void setHumanPlayerBegin(boolean humanPlayerBegin)
     {
         this.humanPlayerBegin = humanPlayerBegin;
+    }
+
+    public boolean isComputerWinner()
+    {
+        return computerWinner;
+    }
+
+    public void setIsComputerWinner(boolean computerWinner)
+    {
+        this.computerWinner = computerWinner;
+    }
+
+    public boolean isDraw()
+    {
+        return draw;
+    }
+
+    public void setIsDraw(boolean draw)
+    {
+        this.draw = draw;
+    }
+
+    public boolean isHumanPlayerWinner()
+    {
+        return humanPlayerWinner;
+    }
+
+    public void setIsHumanPlayerWinner(boolean humanPlayerWinner)
+    {
+        this.humanPlayerWinner = humanPlayerWinner;
     }
 }

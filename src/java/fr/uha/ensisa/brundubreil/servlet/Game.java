@@ -1,5 +1,7 @@
 package fr.uha.ensisa.brundubreil.servlet;
 
+import fr.uha.ensisa.brundubreil.model.Gameplay;
+import fr.uha.ensisa.brundubreil.model.Grid;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,30 +24,32 @@ public class Game extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        gameBean.setPlayer(request.getParameter("name"));
-//        gameBean.setCellState(0,0, CellState.PLAYER);
         
         HttpSession session =  request.getSession(true);
         gameBean = (GameBean) session.getAttribute("gameBean");
+        Grid grid = gameBean.getGrid();
         
+        boolean notIsDraw = false;
+        // Make the human player play
+        notIsDraw |= Gameplay.doHumanPlayerPlay(grid, Integer.parseInt(request.getParameter("column")));
+        
+        if (notIsDraw)
+        { // Only if the user did not complete a column
+            if (grid.isHumanPlayerWinner()) {
+                gameBean.setIsHumanPlayerWinner(true);
+            } else {
+                // Make the computer play
+                notIsDraw |= Gameplay.doComputerPlay(grid);
+                if (grid.isComputerWinner()) {
+                    gameBean.setIsComputerWinner(true);
+                }
+            }
+            // Check if there is a draw
+            if (!notIsDraw) {
+                gameBean.setIsDraw(true);
+            }
+        }
         getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
-//        response.setContentType("text/html;charset=UTF-8");
-//        PrintWriter out = response.getWriter();
-//        
-//        
-//        try {
-//            /* TODO output your page here */
-////            out.println("<html>");
-////            out.println("<head>");
-////            out.println("<title>Servlet Game</title>");  
-////            out.println("</head>");
-////            out.println("<body>");
-////            out.println("<h1>Colonne " + request.getParameter("colonne") + "</h1>");
-////            out.println("</body>");
-////            out.println("</html>");
-//        } finally {            
-//            out.close();
-//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
