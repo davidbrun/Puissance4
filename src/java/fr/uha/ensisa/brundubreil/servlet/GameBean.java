@@ -96,6 +96,11 @@ public class GameBean
         this.humanPlayerWinner = humanPlayerWinner;
     }
     
+    public boolean gameIsEnded()
+    {
+        return humanPlayerWinner || computerWinner || draw;
+    }
+    
     public String getGridHTML()
     {
         StringBuilder result = new StringBuilder();

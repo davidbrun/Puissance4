@@ -26,6 +26,6 @@
         </br>
         <% out.print(gameBean.getGridHTML()); %>
         </br></br></br>
-        <a href="index.jsp">Arr&ecirc;ter</a>
+        <a href="index.jsp"><% out.print((gameBean.gameIsEnded() ? "Recommencer" : "Arr&ecirc;ter")); %></a>
     </body>
 </html>
