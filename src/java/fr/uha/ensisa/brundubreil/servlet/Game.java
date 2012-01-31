@@ -34,7 +34,7 @@ public class Game extends HttpServlet {
             gameBean.setIsComputerWinner(false);
             gameBean.setIsDraw(false);
             gameBean.setIsHumanPlayerWinner(false);
-            session.setAttribute("gameBean", gameBean);
+//            session.setAttribute("gameBean", gameBean);
             
             if (!gameBean.isHumanPlayerBegin())
                 Gameplay.doComputerPlay(gameBean.getGrid());
@@ -44,17 +44,17 @@ public class Game extends HttpServlet {
         
         Grid grid = gameBean.getGrid();
         
-        boolean columnFull = false;
+        boolean columnNotFull = false;
         // Make the human player play
-        columnFull |= Gameplay.doHumanPlayerPlay(grid, Integer.parseInt(request.getParameter("column")));
+        columnNotFull |= Gameplay.doHumanPlayerPlay(grid, Integer.parseInt(request.getParameter("column")));
         
-        if (columnFull)
+        if (columnNotFull)
         { // Only if the user did not complete a column
             if (grid.isHumanPlayerWinner()) {
                 gameBean.setIsHumanPlayerWinner(true);
             } else {
                 // Make the computer play
-                columnFull |= Gameplay.doComputerPlay(grid);
+                columnNotFull |= Gameplay.doComputerPlay(grid);
                 if (grid.isComputerWinner()) {
                     gameBean.setIsComputerWinner(true);
                 }

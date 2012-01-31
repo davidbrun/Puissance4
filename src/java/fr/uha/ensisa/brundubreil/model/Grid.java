@@ -37,7 +37,7 @@ public class Grid
     
     public Cell getFirstNonEmptyCellFromColumn(int column)
     {
-        for (int i = 5; i >= 0; i--)
+        for (int i = Grid.HEIGHT - 1; i >= 0; i--)
             if (this.cells[i][column].getState() == CellState.EMPTY)
                 return this.cells[i][column];
         
