@@ -27,6 +27,21 @@ public class Game extends HttpServlet {
         
         HttpSession session =  request.getSession(true);
         gameBean = (GameBean) session.getAttribute("gameBean");
+        
+        if (request.getParameter("initGrid") != null && request.getParameter("initGrid").equals("true"))
+        {
+            gameBean.setGrid(new Grid());
+            gameBean.setIsComputerWinner(false);
+            gameBean.setIsDraw(false);
+            gameBean.setIsHumanPlayerWinner(false);
+            session.setAttribute("gameBean", gameBean);
+            
+            if (!gameBean.isHumanPlayerBegin())
+                Gameplay.doComputerPlay(gameBean.getGrid());
+            
+            getServletContext().getRequestDispatcher("/jeu.jsp").forward(request, response);
+        }
+        
         Grid grid = gameBean.getGrid();
         
         boolean columnFull = false;

@@ -31,6 +31,11 @@ public class GameBean
         return this.grid;
     }
     
+    public void setGrid(Grid grid)
+    {
+        this.grid = grid;
+    }
+    
     public String getImageForCell(int row, int column)
     {
         if (grid.getCell(row, column).getState() == CellState.HUMAN_PLAYER)

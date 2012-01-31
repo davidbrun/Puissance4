@@ -26,6 +26,10 @@
         </br>
         <% out.print(gameBean.getGridHTML()); %>
         </br></br></br>
-        <a href="index.jsp"><% out.print((gameBean.gameIsEnded() ? "Recommencer" : "Arr&ecirc;ter")); %></a>
+        <a href="index.jsp"><% out.print((gameBean.gameIsEnded() ? "Index" : "Arr&ecirc;ter")); %></a>
+        <%
+            if (gameBean.gameIsEnded())
+                out.print("<a href=\"Game?initGrid=true\">Recommencer</a>");
+        %>
     </body>
 </html>
