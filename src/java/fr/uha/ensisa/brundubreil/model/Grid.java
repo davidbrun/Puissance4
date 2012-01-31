@@ -110,14 +110,80 @@ public class Grid
         }
         
         // Right diagonal
-        
-        if (consecutive >= NBR_OF_CONSECUTIVES_TO_WIN)
-            return true;
+        int nbrOfDiag = Grid.WIDTH + Grid.HEIGHT - 1;
+        int currentNbrOfCells = 1;
+        int maxNbrOfCells = Math.min(Grid.WIDTH, Grid.HEIGHT);
+        int nbrOfIncompleteDiag = 0;
+        for (int currentDiag = 0; currentDiag < nbrOfDiag; currentDiag++)
+        {
+            if (currentNbrOfCells >= NBR_OF_CONSECUTIVES_TO_WIN)
+            {
+                consecutive = 0;
+                int k = Math.min(currentDiag, Grid.HEIGHT - 1);
+                int l = (currentDiag >= Grid.HEIGHT ? currentDiag - Grid.HEIGHT + 1 : 0);
+                for (int j = 0; j < currentNbrOfCells; j++)
+                {
+                    if (this.cells[k][l].getState() == stateToDetect)
+                        consecutive++;
+                    else
+                        consecutive = 0;
+
+                    if (consecutive >= NBR_OF_CONSECUTIVES_TO_WIN)
+                        return true;
+                    
+                    // Update indexes
+                    k--;
+                    l++;
+                }
+            }
+            
+            if (nbrOfIncompleteDiag == 0 && currentNbrOfCells < maxNbrOfCells)
+                currentNbrOfCells++;
+            
+            if (nbrOfIncompleteDiag == 0 && currentNbrOfCells == maxNbrOfCells)
+                nbrOfIncompleteDiag = currentDiag;
+            
+            if (nbrOfIncompleteDiag != 0 && currentDiag + 1 >= nbrOfDiag - nbrOfIncompleteDiag - 1)
+                currentNbrOfCells--;
+        }
         
         // Left diagonal
-        
-        if (consecutive >= NBR_OF_CONSECUTIVES_TO_WIN)
-            return true;
+        nbrOfDiag = Grid.WIDTH + Grid.HEIGHT - 1;
+        currentNbrOfCells = 1;
+        maxNbrOfCells = Math.min(Grid.WIDTH, Grid.HEIGHT);
+        nbrOfIncompleteDiag = 0;
+        for (int currentDiag = 0; currentDiag < nbrOfDiag; currentDiag++)
+        {
+            if (currentNbrOfCells >= NBR_OF_CONSECUTIVES_TO_WIN)
+            {
+                consecutive = 0;
+                int k = (currentDiag < Grid.HEIGHT ? Grid.HEIGHT - 1 - currentDiag : 0);
+                int l = (currentDiag <= Grid.HEIGHT ? 0 : currentDiag - Grid.HEIGHT + 1);
+                for (int j = 0; j < currentNbrOfCells; j++)
+                {
+                    if (this.cells[k][l].getState() == stateToDetect)
+                        consecutive++;
+                    else
+                        consecutive = 0;
+
+                    if (consecutive >= NBR_OF_CONSECUTIVES_TO_WIN)
+                        return true;
+                    
+                    // Update indexes
+                    k++;
+                    l++;
+                }
+            }
+            
+            if (nbrOfIncompleteDiag == 0 && currentNbrOfCells < maxNbrOfCells)
+                currentNbrOfCells++;
+            
+            if (nbrOfIncompleteDiag == 0 && currentNbrOfCells == maxNbrOfCells)
+                nbrOfIncompleteDiag = currentDiag;
+            
+            if (nbrOfIncompleteDiag != 0 && currentDiag + 1 >= nbrOfDiag - nbrOfIncompleteDiag - 1)
+                currentNbrOfCells--;
+        }
         
         return false;
     }
